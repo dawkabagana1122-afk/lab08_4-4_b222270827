@@ -100,10 +100,11 @@ class CourseRegistrationServiceTest {
         verify(repository).saveRegistration(STUDENT_ID, COURSE_ID);
     }
 
-    // A6 — assertThrows
+    // A6 — assertThrows (мутант 3-ын дараа: аргумент тус бүрийн null-ийг шалгадаг болгосон)
     @Test
-    void register_nullStudentId_throwsIllegalArgumentAndNoInteractions() {
+    void register_nullStudentIdOrCourseId_throwsIllegalArgumentAndNoInteractions() {
         assertThrows(IllegalArgumentException.class, () -> service.register(null, COURSE_ID));
+        assertThrows(IllegalArgumentException.class, () -> service.register(STUDENT_ID, null));
 
         verifyNoInteractions(repository, emailSender);
     }
